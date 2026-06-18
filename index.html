@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'none'; object-src 'none'; base-uri 'self';" />
   <title>paléX Digital</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -278,7 +281,6 @@
 <body>
 
   <div class="px-root" id="pxRoot">
-
     <div class="px-bg-glow"></div>
     <canvas id="starsCanvas"></canvas>
 
@@ -303,7 +305,6 @@
       
       <div class="px-success-icon-wrap" id="successIconWrap">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d4baff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M5 12l5 5l10 -10" class="check-path" id="animatedCheck" />
         </svg>
       </div>
@@ -323,24 +324,27 @@
       <circle cx="30" cy="50" r="2.5" fill="#896bb5"/>
       <circle cx="10" cy="70" r="2.5" fill="#896bb5"/>
     </svg>
-
   </div>
 
   <script>
   (function () {
+    "use strict";
 
     /* ── SHOOTING STARS ─────────────────────── */
     var canvas = document.getElementById('starsCanvas');
     var root   = document.getElementById('pxRoot');
+    if (!canvas || !root) return;
 
     function resizeCanvas() {
       canvas.width  = root.offsetWidth  || window.innerWidth;
       canvas.height = root.offsetHeight || window.innerHeight;
     }
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', resizeCanvas, { passive: true });
 
     var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
     var stars = [];
     var spawnTimer = 0;
 
@@ -441,18 +445,22 @@
     tick();
 
     /* ── BUTTON SPARKS + NAVIGATION ─────────── */
-    var btn            = document.getElementById('mainBtn');
-    var container      = document.getElementById('sparkContainer');
-    var btnWrap        = document.getElementById('btnWrap');
-    var successIconWrap= document.getElementById('successIconWrap');
-    var animatedCheck  = document.getElementById('animatedCheck');
+    var btn             = document.getElementById('mainBtn');
+    var container       = document.getElementById('sparkContainer');
+    var btnWrap         = document.getElementById('btnWrap');
+    var successIconWrap = document.getElementById('successIconWrap');
+    var animatedCheck   = document.getElementById('animatedCheck');
+
+    if (!btn || !container || !btnWrap || !successIconWrap || !animatedCheck) return;
 
     function burst(cx, cy, cb) {
       var colors = ['#896bb5','#c9a8ff','#ffffff','#d4baff','#6a3fa0'];
+      
       for (var i = 0; i < 16; i++) {
         (function(idx) {
-          var el    = document.createElement('div');
+          var el = document.createElement('div');
           el.className = 'px-spark';
+          
           var angle = (idx / 16) * 2 * Math.PI + (Math.random() - 0.5) * 0.5;
           var dist  = 30 + Math.random() * 35;
           var tx    = Math.cos(angle) * dist;
@@ -460,24 +468,28 @@
           var size  = 3 + Math.random() * 5;
           var dur   = 300 + Math.random() * 300;
           var delay = 80 + Math.random() * 120;
-          el.style.cssText = [
-            'left:' + cx + 'px',
-            'top:'  + cy + 'px',
-            'width:'  + size + 'px',
-            'height:' + size + 'px',
-            'background:' + colors[Math.floor(Math.random() * colors.length)],
-            'opacity:1',
-            'transition:transform ' + dur + 'ms cubic-bezier(0.2,0,1,1),' +
-              'opacity ' + dur + 'ms ease ' + delay + 'ms'
-          ].join(';');
+
+          // Safe explicit style declarations avoiding cssText injections
+          el.style.setProperty('left', cx + 'px');
+          el.style.setProperty('top', cy + 'px');
+          el.style.setProperty('width', size + 'px');
+          el.style.setProperty('height', size + 'px');
+          el.style.setProperty('background', colors[Math.floor(Math.random() * colors.length)]);
+          el.style.setProperty('opacity', '1');
+          el.style.setProperty('transition', 'transform ' + dur + 'ms cubic-bezier(0.2,0,1,1), opacity ' + dur + 'ms ease ' + delay + 'ms');
+
           container.appendChild(el);
+          
           requestAnimationFrame(function() {
             requestAnimationFrame(function() {
-              el.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(0)';
-              el.style.opacity   = '0';
+              el.style.setProperty('transform', 'translate(' + tx + 'px,' + ty + 'px) scale(0)');
+              el.style.setProperty('opacity', '0');
             });
           });
-          setTimeout(function() { el.parentNode && el.parentNode.removeChild(el); }, 700);
+          
+          setTimeout(function() { 
+            if (el.parentNode) { el.parentNode.removeChild(el); } 
+          }, 700);
         })(i);
       }
       if (cb) setTimeout(cb, 440);
@@ -489,8 +501,8 @@
       var cx = bRect.left - wRect.left + bRect.width  / 2;
       var cy = bRect.top  - wRect.top  + bRect.height / 2;
       
-      btn.style.opacity = '0';
-      btn.style.pointerEvents = 'none';
+      btn.style.setProperty('opacity', '0');
+      btn.style.setProperty('pointer-events', 'none');
 
       burst(cx, cy, function () {
         successIconWrap.classList.add('show');
@@ -502,10 +514,10 @@
           duration: 400,
           easing: 'ease-in-out',
           fill: 'forwards'
-        });
+        } );
 
-        // Safe relative folder reference -> opens /linkhub/ seamlessly without .html extension
         setTimeout(function() {
+          // Hardcoded relative directory navigation prevents arbitrary URL redirect tricks
           window.location.href = 'linkhub/';
         }, 750);
       });
@@ -516,26 +528,34 @@
         var wRect = btnWrap.getBoundingClientRect();
         var x = e.clientX - wRect.left;
         var y = e.clientY - wRect.top;
+        
         var el = document.createElement('div');
         el.className = 'px-spark';
-        el.style.cssText = [
-          'left:' + x + 'px',
-          'top:'  + y + 'px',
-          'width:3px','height:3px',
-          'background:#896bb5',
-          'opacity:0.8',
-          'transition:transform 380ms ease,opacity 380ms ease'
-        ].join(';');
+        
+        el.style.setProperty('left', x + 'px');
+        el.style.setProperty('top', y + 'px');
+        el.style.setProperty('width', '3px');
+        el.style.setProperty('height', '3px');
+        el.style.setProperty('background', '#896bb5');
+        el.style.setProperty('opacity', '0.8');
+        el.style.setProperty('transition', 'transform 380ms ease, opacity 380ms ease');
+        
         container.appendChild(el);
+        
         requestAnimationFrame(function() {
           requestAnimationFrame(function() {
-            el.style.transform = 'translate(' + ((Math.random()-0.5)*20) + 'px,' + (-10 - Math.random()*14) + 'px) scale(0)';
-            el.style.opacity = '0';
+            var transX = (Math.random() - 0.5) * 20;
+            var transY = -10 - Math.random() * 14;
+            el.style.setProperty('transform', 'translate(' + transX + 'px,' + transY + 'px) scale(0)');
+            el.style.setProperty('opacity', '0');
           });
         });
-        setTimeout(function() { el.parentNode && el.parentNode.removeChild(el); }, 480);
+        
+        setTimeout(function() { 
+          if (el.parentNode) { el.parentNode.removeChild(el); } 
+        }, 480);
       }
-    });
+    }, { passive: true });
 
   })();
   </script>

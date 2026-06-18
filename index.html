@@ -348,7 +348,6 @@
       this.x        = x;
       this.y        = y;
       this.size     = size;
-      // Stars speed values increased for a faster pace
       this.speedY   = 3.2 + Math.random() * 4.5;
       this.speedX   = (Math.random() - 0.5) * 1.5;
       this.opacity  = 0;
@@ -408,7 +407,6 @@
     function tick() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       spawnTimer++;
-      // Spawns stars more frequently (changed from % 10 to % 4)
       if (spawnTimer % 4 === 0) spawnStar();
       var alive = [];
       for (var i = 0; i < stars.length; i++) {
@@ -429,7 +427,6 @@
       requestAnimationFrame(tick);
     }
 
-    /* Seed some initial stars immediately */
     for (var i = 0; i < 25; i++) {
       var s = new Star(
         Math.random() * (root.offsetWidth  || 400),
@@ -492,15 +489,12 @@
       var cx = bRect.left - wRect.left + bRect.width  / 2;
       var cy = bRect.top  - wRect.top  + bRect.height / 2;
       
-      // Hide standard button
       btn.style.opacity = '0';
       btn.style.pointerEvents = 'none';
 
       burst(cx, cy, function () {
-        // Show success icon container
         successIconWrap.classList.add('show');
         
-        // Match Framer Motion's checkmark draw-in feel using Web Animations API
         animatedCheck.animate([
           { strokeDashoffset: 100 },
           { strokeDashoffset: 0 }
@@ -510,9 +504,9 @@
           fill: 'forwards'
         });
 
-        // Safe redirect timing after check finishes drawing
+        // Updated redirection target here
         setTimeout(function() {
-          window.location.href = 'https://palexdigital.github.io/paleXlinkhub/';
+          window.location.href = 'linkhub/linkhub.html';
         }, 750);
       });
     });

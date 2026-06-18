@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paléX Digital Solutions | Premium Digital Experiences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&family=JetBrains+Mono:wght=400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlack: '#000000',
+                        brandPurple: {
+                            base: '#6A0DAD',
+                            deep: '#150526',
+                            glow: '#7B2CBF'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(123, 44, 191, 0.2);
+        }
+        input, select, textarea {
+            background-color: #09090B !important;
+            border: 1px solid #141417 !important;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none !important;
+            border-color: #6A0DAD !important;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <canvas id="glitchCanvas" class="w-full h-full opacity-35 mix-blend-screen"></canvas>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-black/40 to-black/90"></div>
+    </div>
+
+    <nav class="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-brandBorder py-5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+            <a href="#" class="font-mono text-sm tracking-[0.2em] font-bold text-white">paléX</a>
+            <div class="hidden md:flex items-center space-x-8 text-xs tracking-widest text-gray-400 font-mono">
+                <a href="#overview" class="hover:text-white transition-colors">Overview</a>
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#process" class="hover:text-white transition-colors">Protocol</a>
+            </div>
+            <a href="https://wa.me/27627654746" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 border border-white text-xs font-mono uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300">Contact Us</a>
+        </div>
+    </nav>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+
+        <section id="hero" class="min-h-screen flex flex-col justify-center pt-32 pb-20">
+            <div class="max-w-4xl space-y-6">
+                <span class="text-xs uppercase tracking-[0.3em] font-mono text-brandPurple-glow block">paleXdigital</span>
+                <h1 class="text-5xl md:text-7xl font-semibold tracking-tight text-white leading-[1.1]">
+                    Premium Digital Experiences<br>That Convert
+                </h1>
+                <p class="text-gray-400 text-lg md:text-xl font-light max-w-2xl leading-relaxed">
+                    We construct high-end corporate sites, custom applications, and strategic marketing assets designed strictly for high credibility, seamless operation, and conversion dominance.
+                </p>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-6">
+                    <a href="https://wa.me/27627654746" target="_blank" rel="noopener noreferrer" class="px-8 py-4 bg-white text-black font-medium text-sm tracking-wide hover:bg-transparent hover:text-white border border-white transition-all duration-300">
+                        Contact on WhatsApp
+                    </a>
+                    <a href="#services" class="text-sm font-mono tracking-widest text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                        Explore Services <span class="text-xs">↓</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="overview" class="py-32 border-t border-brandBorder">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4">
+                    <span class="text-xs uppercase tracking-[0.3em] font-mono text-brandPurple-glow block">Who We Are</span>
+                </div>
+                <div class="lg:col-span-8 space-y-8">
+                    <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-white leading-tight">
+                        A premium digital agency building the future of online business
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-400 font-light leading-relaxed text-sm md:text-base">
+                        <p>
+                            At paléX, we break away from basic structural rules to engineer tailored systems. We deliver flawless, elite online frameworks tailored carefully to support high corporate and commercial transformation targets.
+                        </p>
+                        <p>
+                            Bespoke designs, enterprise performance metrics, clean semantic markup, and reliable data endpoints merge together to establish continuous brand leverage over competitors. We operate as your select digital deployment partner.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="py-32 border-t border-brandBorder">
+            <div class="mb-20">
+                <span class="text-xs uppercase tracking-[0.3em] font-mono text-brandPurple-glow block">Our Solutions Suite</span>
+                <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-white mt-3">
+                    Full-spectrum digital services for ambitious brands
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-brandCard border border-brandBorder p-10 flex flex-col justify-between group hover:border-brandPurple-base/40 transition-colors duration-300">
+                    <div class="space-y-4">
+                        <div class="text-brandPurple-glow text-xl font-mono">◌</div>
+                        <h3 class="text-xl font-medium text-white">Website Development</h3>
+                        <p class="text-xs text-gray-500 font-light leading-relaxed">The high-end frame built strictly for corporate scaling actions.</p>
+                        <ul class="space-y-2.5 pt-4 text-xs text-gray-400 font-light font-mono">
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Basic Business Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Professional Business Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Premium Business Website (advanced features)</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Portfolio Website </li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Church Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Restaurant/Fast Food Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Real Estate Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> School/Education Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> NGO/NPO Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> E-Commerce Store</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Website Redesign</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Website Maintenance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-brandCard border border-brandBorder p-10 flex flex-col justify-between group hover:border-brandPurple-base/40 transition-colors duration-300">
+                    <div class="space-y-4">
+                        <div class="text-brandPurple-glow text-xl font-mono">◇</div>
+                        <h3 class="text-xl font-medium text-white">Advanced Website Solutions</h3>
+                        <p class="text-xs text-gray-500 font-light leading-relaxed"> Additional Advanced Website Features</p>
+                        <ul class="space-y-2.5 pt-4 text-xs text-gray-400 font-light font-mono">
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Interactive Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> 3D Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Premium 3D Business Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Custom Web Application</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Booking Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Directory Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Membership  Website</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-brandCard border border-brandBorder p-10 flex flex-col justify-between group hover:border-brandPurple-base/40 transition-colors duration-300">
+                    <div class="space-y-4">
+                        <div class="text-brandPurple-glow text-xl font-mono">⧈</div>
+                        <h3 class="text-xl font-medium text-white">Graphic Design</h3>
+                        <p class="text-xs text-gray-500 font-light leading-relaxed">Elite presentation structures formulated across layout assets</p>
+                        <ul class="space-y-2.5 pt-4 text-xs text-gray-400 font-light font-mono">
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Logo Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Premium Logo Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Business Card Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Flyer Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Poster  Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Brochure  Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Menu  Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Company Profile Design</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-brandCard border border-brandBorder p-10 flex flex-col justify-between group hover:border-brandPurple-base/40 transition-colors duration-300">
+                    <div class="space-y-4">
+                        <div class="text-brandPurple-glow text-xl font-mono">❑</div>
+                        <h3 class="text-xl font-medium text-white"> Advertising & Branding</h3>
+                        <p class="text-xs text-gray-500 font-light leading-relaxed">Amplifying digital dominance through calculated communication vectors.</p>
+                        <ul class="space-y-2.5 pt-4 text-xs text-gray-400 font-light font-mono">
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Social Media Advertisement</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Product Advertisement Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Promotional Banner Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Social Media Post Design</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Social Media Cover/Banner</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Brand Identity Package</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Marketing Material Bundle </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-brandCard border border-brandBorder p-10 flex flex-col justify-between group hover:border-brandPurple-base/40 transition-colors duration-300">
+                    <div class="space-y-4">
+                        <div class="text-brandPurple-glow text-xl font-mono">⚃</div>
+                        <h3 class="text-xl font-medium text-white">Digital Solutions</h3>
+                        <p class="text-xs text-gray-500 font-light leading-relaxed">Integrated custom internal automation tools and native software code blocks.</p>
+                        <ul class="space-y-2.5 pt-4 text-xs text-gray-400 font-light font-mono">
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Mobile App Development</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Link Hub Website</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> QR Code Landing Page</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Digital Business Card</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Custom Digital Solution</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-brandCard border border-brandBorder p-10 flex flex-col justify-between group hover:border-brandPurple-base/40 transition-colors duration-300">
+                    <div class="space-y-4">
+                        <div class="text-brandPurple-glow text-xl font-mono">▲</div>
+                        <h3 class="text-xl font-medium text-white">Website Hosting & Domains (Publishing)</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">Comprehensive submission and configuration procedures across global marketplaces.</p>
+                        <ul class="space-y-2.5 pt-4 text-xs text-gray-400 font-light font-mono">
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Standard Hosting (palexdigital.github.io/YOUR-WEBSITE-NAME)</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Plus Hosting (YOUR-WEBSITE-NAME.pages.deV)</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Premium Hosting (YOUR-WEBSITE-NAME.com)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-brandCard border border-brandBorder p-10 flex flex-col justify-between group hover:border-brandPurple-base/40 transition-colors duration-300">
+                    <div class="space-y-4">
+                        <div class="text-brandPurple-glow text-xl font-mono">⚃</div>
+                        <h3 class="text-xl font-medium text-white">App Hosting (Publishing)</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">Comprehensive submission and configuration procedures across global marketplaces.</p>
+                        <ul class="space-y-2.5 pt-4 text-xs text-gray-400 font-light font-mono">
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Apple App Store</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> Google Play Store</li>
+                            <li class="flex items-center gap-3"><span class="text-brandPurple-glow">▸</span> paléX App Store</li>
+                        </ul>
+                    </div>
+                </div>
+
+            <div class="mt-16 pt-8 border-t border-brandBorder flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <span class="text-xs uppercase tracking-widest font-mono text-gray-500">Every website includes:</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-[11px] font-mono tracking-wider text-gray-400 uppercase">
+                    <div>• Responsive Design</div>
+                    <div>• Speed Optimization</div>
+                    <div>• Hardened Security</div>
+                    <div>• Conversion Elements</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="py-32 border-t border-brandBorder">
+            <div class="mb-20">
+                <span class="text-xs uppercase tracking-[0.3em] font-mono text-brandPurple-glow block">Our Methodology</span>
+                <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-white mt-3">A structured approach to exceptional results</h2>
+            </div>
+
+            <div class="space-y-2">
+                <div class="border-b border-brandBorder/80 py-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-1 text-3xl font-mono text-gray-700 font-bold">01</div>
+                    <div class="md:col-span-3 text-lg font-medium text-white font-mono">▸ Discovery</div>
+                    <div class="md:col-span-8 text-xs text-gray-400 font-light leading-relaxed">System parameters alignment analyzing scope timelines and metric objectives.</div>
+                </div>
+                <div class="border-b border-brandBorder/80 py-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-1 text-3xl font-mono text-gray-700 font-bold">02</div>
+                    <div class="md:col-span-3 text-lg font-medium text-white font-mono">▸ Design</div>
+                    <div class="md:col-span-8 text-xs text-gray-400 font-light leading-relaxed">Minimalist corporate architecture layout blocks configured to establish domain authority.</div>
+                </div>
+                <div class="border-b border-brandBorder/80 py-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-1 text-3xl font-mono text-gray-700 font-bold">03</div>
+                    <div class="md:col-span-3 text-lg font-medium text-white font-mono">▸ Development</div>
+                    <div class="md:col-span-8 text-xs text-gray-400 font-light leading-relaxed">Bespoke modular framework coding keeping asset load metrics ultra-clean.</div>
+                </div>
+                <div class="border-b border-brandBorder/80 py-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-1 text-3xl font-mono text-gray-700 font-bold">04</div>
+                    <div class="md:col-span-3 text-lg font-medium text-white font-mono">▸ Deployment</div>
+                    <div class="md:col-span-8 text-xs text-gray-400 font-light leading-relaxed">Rigorous multi-layer platform checking prior to static production edge optimization.</div>
+                </div>
+                <div class="border-b border-brandBorder/80 py-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-1 text-3xl font-mono text-gray-700 font-bold">05</div>
+                    <div class="md:col-span-3 text-lg font-medium text-white font-mono">▸ Support</div>
+                    <div class="md:col-span-8 text-xs text-gray-400 font-light leading-relaxed">Continuous system performance evaluations and strategic platform expansion support modules.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 border-t border-brandBorder">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-5 space-y-4">
+                    <span class="text-xs uppercase tracking-[0.3em] font-mono text-brandPurple-glow block">Core Directives</span>
+                    <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-white leading-tight">Built on excellence, driven by results</h2>
+                    <p class="text-xs text-gray-400 font-light leading-relaxed pt-2 max-w-sm">
+                        paléX operates with a focus on premium aesthetics and absolute engineering precision. We construct robust architectures designed for long-term capability.
+                    </p>
+                </div>
+                
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="bg-brandCard border border-brandBorder p-6 space-y-2">
+                        <div class="text-xs font-mono text-brandPurple-glow">[01] Ultimate Quality</div>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">We discard standard templates to execute optimized, bespoke code frameworks.</p>
+                    </div>
+                    <div class="bg-brandCard border border-brandBorder p-6 space-y-2">
+                        <div class="text-xs font-mono text-brandPurple-glow">[02] Compromiseless Scale</div>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">Data endpoints, responsive engines, and server architectures configured for high performance.</p>
+                    </div>
+                    <div class="bg-brandCard border border-brandBorder p-6 space-y-2">
+                        <div class="text-xs font-mono text-brandPurple-glow">[03] Long-Term Partnership</div>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">Proactive post-launch support guarantees continuous digital optimization blocks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-32 border-t border-brandBorder">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <span class="text-xs uppercase tracking-[0.3em] font-mono text-brandPurple-glow block">Client Intake Matrix</span>
+                        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-white">Ready to elevate your digital presence?</h2>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed max-w-sm">
+                            Our team manages project cycles selectively. Connect with our office directly or complete our system briefing request.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 pt-4 font-mono text-xs">
+                        <a href="https://wa.me/27627654746" target="_blank" rel="noopener noreferrer" class="block bg-brandCard border border-brandBorder p-4 hover:border-brandPurple-base/40 transition-colors">
+                            <span class="text-gray-500 block uppercase tracking-wider mb-1">WhatsApp</span>
+                            <span class="text-white font-medium text-sm">+27 62 765 4746</span>
+                        </a>
+                        <a href="mailto:palexdigital@gmail.com" class="block bg-brandCard border border-brandBorder p-4 hover:border-brandPurple-base/40 transition-colors">
+                            <span class="text-gray-500 block uppercase tracking-wider mb-1">Instagram</span>
+                            <span class="text-white font-medium text-sm">https://www.instagram.com/palexdigitalstudio/</span>
+                            </a>
+                        <a href="mailto:palexdigital@gmail.com" class="block bg-brandCard border border-brandBorder p-4 hover:border-brandPurple-base/40 transition-colors">
+                            <span class="text-gray-500 block uppercase tracking-wider mb-1">Email</span>
+                            <span class="text-white font-medium text-sm">palexdigital@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-brandCard border border-brandBorder p-8 md:p-10">
+                    <form id="intakeForm" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[11px] uppercase tracking-wider font-mono text-gray-400">Your Name *</label>
+                                <input type="text" id="formName" required class="w-full text-white px-4 py-3.5 text-xs font-mono">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[11px] uppercase tracking-wider font-mono text-gray-400">Company Name</label>
+                                <input type="text" id="formCompany" class="w-full text-white px-4 py-3.5 text-xs font-mono">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[11px] uppercase tracking-wider font-mono text-gray-400">Email Address *</label>
+                            <input type="email" id="formEmail" required class="w-full text-white px-4 py-3.5 text-xs font-mono">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[11px] uppercase tracking-wider font-mono text-gray-400">Required Service *</label>
+                            <select id="formService" required class="w-full text-gray-400 px-4 py-3.5 text-xs font-mono appearance-none rounded-none">
+                                <option value="">Select Platform Target...</option>
+                                <option value="Website Development Ecosystem">Website Development Ecosystem</option>
+                                <option value="Visual Identity Design">Visual Identity Design</option>
+                                <option value="Custom Digital Automation Systems">Custom Digital Automation Systems</option>
+                                <option value="Mobile Application Development">Mobile Application Development</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[11px] uppercase tracking-wider font-mono text-gray-400">Project Brief Notes *</label>
+                            <textarea id="formBrief" required rows="4" class="w-full text-white p-4 text-xs font-mono resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-white text-black font-mono font-medium text-xs uppercase tracking-widest hover:bg-transparent hover:text-white border border-white transition-all duration-300">
+                            Dispatch System Request ↗
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-brandBorder bg-black py-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+            <div class="space-y-2">
+                <span class="font-mono text-sm tracking-[0.2em] font-bold text-white">paléX</span>
+                <p class="text-[11px] text-gray-500 font-light">Developed By paléxdigital</p>
+            </div>
+            <div class="flex gap-16 text-xs font-mono text-gray-400">
+                <div class="space-y-2">
+                    <div class="text-gray-600 uppercase tracking-wider text-[10px]">Navigation</div>
+                    <a href="#overview" class="block hover:text-white transition-colors">Overview</a>
+                    <a href="#services" class="block hover:text-white transition-colors">Services</a>
+                    <a href="#process" class="block hover:text-white transition-colors">Protocol</a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12 mt-12 pt-6 border-t border-brandBorder/40 text-center md:text-left text-[10px] font-mono text-gray-600 tracking-widest uppercase">
+            &copy; 2026 paléX Digital Solutions. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Form Processing to WhatsApp Link Generator
+        document.getElementById('intakeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('formName').value;
+            const company = document.getElementById('formCompany').value || 'Not Specified';
+            const email = document.getElementById('formEmail').value;
+            const service = document.getElementById('formService').value;
+            const brief = document.getElementById('formBrief').value;
+
+            const whatsappMessage = `*NEW PALÉX SYSTEM REQUEST*%0A%0A` +
+                                    `• *Name:* ${encodeURIComponent(name)}%0A` +
+                                    `• *Company:* ${encodeURIComponent(company)}%0A` +
+                                    `• *Email:* ${encodeURIComponent(email)}%0A` +
+                                    `• *Required Service:* ${encodeURIComponent(service)}%0A%0A` +
+                                    `*Project Brief Notes:*%0A${encodeURIComponent(brief)}`;
+
+            const targetWhatsAppNumber = '27627654746';
+            const fullLink = `https://wa.me/${targetWhatsAppNumber}?text=${whatsappMessage}`;
+            
+            window.open(fullLink, '_blank');
+        });
+
+        // Downward Flowing Matrix Digital Rain Controller Engine
+        const canvas = document.getElementById('glitchCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+
+        let fontSize = 14;
+        let columns = 0;
+        let drops = [];
+        const chars = '01XYZΩΨΦ7B2C'.split('');
+
+        function sizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            columns = Math.floor(canvas.width / fontSize) + 1;
+            
+            // Reinitialize or expand streams safely on resize
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                // Stagger starting locations offscreen
+                drops[i] = Math.random() * -100; 
+            }
+        }
+
+        function drawMatrixRain() {
+            // Semi-transparent overlay trail create a fluid motion fade asset
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                // Select random character matrix node
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                // High intensity glow effect for trailing droplets
+                if (Math.random() > 0.98) {
+                    ctx.fillStyle = '#E0AAFF'; // Brightest purple tip
+                } else {
+                    ctx.fillStyle = '#6A0DAD'; // Core brandPurple
+                }
+
+                ctx.fillText(text, x, y);
+
+                // Reset stream to top after reaching bottom layout frame boundary
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                // Increment downward animation stream speed metrics
+                drops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            sizeCanvas();
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+
+        sizeCanvas();
+        // Run background engine loop at 30fps matrix speed
+        setInterval(drawMatrixRain, 33);
+    </script>
+</body>
+</html>

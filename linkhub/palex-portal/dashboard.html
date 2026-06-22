@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); margin-top: 20px;">
+            <div>
+                <h1 id="project-title" style="font-size: 26px; font-weight: 700;">Project Profile</h1>
+                <p class="text-muted" style="font-size: 14px; margin-top: 4px;">Client: <span id="client-name" style="color: #fff; font-weight: 500;">Loading...</span></p>
+            </div>
+            <a href="index.html" class="btn-secondary">Exit Portal</a>
+        </div>
+
+        <div class="grid">
+            <div class="metric-card">
+                <label>Proposal ID</label>
+                <span id="m-code" style="font-family: monospace; font-weight: bold; font-size: 18px; color: var(--purple-accent);">---</span>
+            </div>
+            <div class="metric-card">
+                <label>Service Type</label>
+                <span id="m-service" style="font-size: 16px; font-weight: 500;">---</span>
+            </div>
+            <div class="metric-card">
+                <label>Current Stage</label>
+                <span id="m-stage" style="font-size: 16px; font-weight: 500; color: var(--purple-primary);">---</span>
+            </div>
+            <div class="metric-card">
+                <label>Target Delivery</label>
+                <span id="m-date" style="font-size: 16px; font-weight: 500;">---</span>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 18px; font-weight: 600;">Overall Workspace Progress</h3>
+                <span id="progress-text" style="font-size: 24px; font-weight: 800; color: var(--purple-primary);">0%</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                <h3 style="font-size: 16px; font-weight: 600;">Latest Project Update Log</h3>
+                <span id="last-updated-date" class="text-muted" style="font-size: 12px;">Date: --</span>
+            </div>
+            <p id="update-msg" style="line-height: 1.6; background-color: var(--bg-secondary); padding: 18px; border-radius: 8px; border: 1px solid var(--border-color); color: #E5E7EB; font-size: 15px;">
+                No logs available.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 paléX Client Portal. All Rights Reserved.</p>
+    </footer>
+
+    <script src="projects-data.js"></script>
+    <script>
+        const targetCode = localStorage.getItem('activeProjectCode');
+        const currentProject = PROJECTS_DATABASE.find(p => p.trackingCode === targetCode);
+
+        if (!currentProject) {
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('project-title').innerText = currentProject.projectName;
+            document.getElementById('client-name').innerText = currentProject.clientName;
+            document.getElementById('m-code').innerText = currentProject.trackingCode;
+            document.getElementById('m-service').innerText = currentProject.serviceType;
+            document.getElementById('m-stage').innerText = currentProject.currentStage;
+            document.getElementById('m-date').innerText = currentProject.expectedCompletion;
+            document.getElementById('progress-text').innerText = currentProject.progressPercentage + '%';
+            document.getElementById('last-updated-date').innerText = "Last Updated: " + currentProject.lastUpdated;
+            document.getElementById('update-msg').innerText = `"${currentProject.latestUpdate}"`;
+
+            setTimeout(() => {
+                document.getElementById('progress-bar').style.width = currentProject.progressPercentage + '%';
+            }, 150);
+        }
+    </script>
+</body>
+</html>

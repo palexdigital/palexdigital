@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal - Track Progress</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="centered-body">
+
+    <div class="card login-box">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 class="text-purple" style="font-size: 32px; font-weight: 800; margin-bottom: 8px;">paléX Client Portal</h1>
+            <h2 style="font-size: 19px; margin-bottom: 10px; font-weight: 700;">Track Your Project Progress</h2>
+            <p class="text-muted" style="font-size: 13px; line-height: 1.5;">Securely monitor your project anytime using your Proposal Number code and password.</p>
+        </div>
+
+        <div id="error-message" style="display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid #EF4444; color: #FCA5A5; padding: 12px; border-radius: 6px; font-size: 13px; text-align: center; margin-bottom: 15px;"></div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label>Proposal Number</label>
+                <input type="text" id="tracking-code" placeholder="e.g., PROP-2026-01" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn" style="margin-top: 5px; margin-bottom: 20px;">View Project</button>
+        </form>
+        
+        <div style="text-align: center;">
+            <a href="admin.html" class="text-muted" style="font-size: 13px; text-decoration: none;">Staff Admin Login</a>
+        </div>
+    </div>
+
+    <script src="projects-data.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const inputCode = document.getElementById('tracking-code').value.trim();
+            const inputPass = document.getElementById('password').value.trim();
+            const errorDiv = document.getElementById('error-message');
+
+            if (typeof PROJECTS_DATABASE === 'undefined') {
+                errorDiv.innerText = "Critical Error: projects-data.js file is missing or misnamed.";
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            const foundProject = PROJECTS_DATABASE.find(p => p.trackingCode === inputCode);
+
+            if (foundProject && foundProject.password === inputPass) {
+                errorDiv.style.display = "none";
+                localStorage.setItem('activeProjectCode', inputCode);
+                window.location.href = './dashboard.html';
+            } else {
+                errorDiv.innerText = "Invalid proposal number or incorrect password.";
+                errorDiv.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

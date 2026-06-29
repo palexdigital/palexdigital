@@ -375,10 +375,6 @@
 <body>
 
   <div class="background">
-    <video class="background-video" autoplay muted loop playsinline>
-      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
 
     <div class="background-content">
       <div class="px-root" id="pxRoot">
@@ -395,7 +391,7 @@
           </div>
         </div>
 
-        <h1 class="px-title">Welcome To paléXdigital</h1>
+        <h1 class="px-title">Welcome</h1>
 
         <div class="px-btn-wrap" id="btnWrap">
           <button class="btn" id="mainBtn" aria-label="Press me">
@@ -512,7 +508,11 @@
     }
 
     function spawnStar() {
-      // Background star spawning has been disabled
+      stars.push(new Star(
+        Math.random() * canvas.width,
+        canvas.height + 12,
+        3 + Math.random() * 5
+      ));
     }
 
     function tick() {
@@ -548,7 +548,7 @@
       );
       s.opacity = 0.3 + Math.random() * 0.6;
       s.fadeIn  = false;
-      // Starting star animation generation has been disabled
+      stars.push(s);
     }
 
     tick();
@@ -562,48 +562,37 @@
     var animatedCheck   = document.getElementById('animatedCheck');
     var grantedText     = document.getElementById('grantedText');
 
-    function burst(cx, cy, cb) {
-      if (cb) setTimeout(cb, 0);
-    }
-
     // Interactive button event handler
     btn.addEventListener('click', function () {
-      var bRect = btn.getBoundingClientRect();
-      var wRect = btnWrap.getBoundingClientRect();
-      var cx = bRect.left - wRect.left + bRect.width  / 2;
-      var cy = bRect.top  - wRect.top  + bRect.height / 2;
-      
       btn.style.display = 'none';
       btn.style.pointerEvents = 'none';
 
-      burst(cx, cy, function () {
-        // Step 1: Turn into custom loading icon
-        loaderIcon.style.display = 'flex';
+      // Step 1: Turn into custom loading icon
+      loaderIcon.style.display = 'flex';
 
-        // Step 2: Keep loading for exactly 3 seconds
+      // Step 2: Keep loading for exactly 3 seconds
+      setTimeout(function() {
+        loaderIcon.style.display = 'none';
+
+        // Step 3: Show checkmark tick and text under it
+        successIconWrap.classList.add('show');
+        grantedText.classList.add('show');
+        
+        animatedCheck.animate([
+          { strokeDashoffset: 100 },
+          { strokeDashoffset: 0 }
+        ], {
+          duration: 400,
+          easing: 'ease-in-out',
+          fill: 'forwards'
+        });
+
+        // Step 4: Proceed to the redirection link hub
         setTimeout(function() {
-          loaderIcon.style.display = 'none';
+          window.location.href = 'linkhub/';
+        }, 1200);
 
-          // Step 3: Show checkmark tick and text under it
-          successIconWrap.classList.add('show');
-          grantedText.classList.add('show');
-          
-          animatedCheck.animate([
-            { strokeDashoffset: 100 },
-            { strokeDashoffset: 0 }
-          ], {
-            duration: 400,
-            easing: 'ease-in-out',
-            fill: 'forwards'
-          });
-
-          // Step 4: Proceed to the redirection link hub
-          setTimeout(function() {
-            window.location.href = 'linkhub/';
-          }, 1200);
-
-        }, 3000);
-      });
+      }, 3000);
     });
 
     // Reset layout elements state cleanly if user presses browser back button
@@ -617,7 +606,29 @@
     });
 
     btn.addEventListener('mousemove', function (e) {
-      // Mouse move splash particles have been disabled
+      if (Math.random() > 0.88) {
+        var wRect = btnWrap.getBoundingClientRect();
+        var x = e.clientX - wRect.left;
+        var y = e.clientY - wRect.top;
+        var el = document.createElement('div');
+        el.className = 'px-spark';
+        el.style.cssText = [
+          'left:' + x + 'px',
+          'top:'  + y + 'px',
+          'width:3px','height:3px',
+          'background:#896bb5',
+          'opacity:0.8',
+          'transition:transform 380ms ease,opacity 380ms ease'
+        ].join(';');
+        container.appendChild(el);
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            el.style.transform = 'translate(' + ((Math.random()-0.5)*20) + 'px,' + (-10 - Math.random()*14) + 'px) scale(0)';
+            el.style.opacity = '0';
+          });
+        });
+        setTimeout(function() { el.parentNode && el.parentNode.removeChild(el); }, 480);
+      }
     });
 
   })();

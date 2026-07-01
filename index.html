@@ -12,7 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />  <link rel="preconnect" href="https://fonts.gstatic.com"    crossorigin />  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap"        rel="stylesheet" />
   <style>    *, *::before, *::after {      box-sizing: border-box;      margin: 0;      padding: 0;    }
     html, body {      margin: 0;      width: 100%;      height: 100%;      background: #000;      overflow: hidden;    }
-    .background {      position: relative;      width: 100%;      height: 100vh;      background: #000 url('download.jpg') no-repeat center center;      background-size: cover;      overflow: hidden;    }
+    .background {      position: relative;      width: 100%;      height: 100vh;      background: #000;      overflow: hidden;    }
+    .background-video {      position: absolute;      inset: 0;      width: 100%;      height: 100%;      object-fit: cover;      background: #000;      z-index: 0;    }
     .background-content {      position: relative;      z-index: 1;      width: 100%;      height: 100%;    }
     .px-root {      height: 100%;      width: 100%;      display: flex;      flex-direction: column;      align-items: center;      justify-content: center;      position: relative;      overflow: hidden;      font-family: 'Inter', sans-serif;      padding: 3rem 2rem;    }
     /* Ambient glow */    .px-bg-glow {      position: absolute;      width: 340px;      height: 340px;      border-radius: 50%;      background: radial-gradient(circle, rgba(137,107,181,0.22) 0%, transparent 70%);      top: 50%;      left: 50%;      transform: translate(-50%, -50%);      pointer-events: none;      animation: glowPulse 4s ease-in-out infinite;      z-index: 0;    }    @keyframes glowPulse {      0%, 100% { opacity: 0.7; transform: translate(-50%,-50%) scale(1); }      50%       { opacity: 1;   transform: translate(-50%,-50%) scale(1.15); }    }
@@ -31,7 +32,7 @@
     .btn:active {      transform: scale(0.975);    }
     .btn-inner {      display: block;      border-radius: 100px;      padding: 0.9em 1.8em;      background: linear-gradient(135deg, #1c1c1c 0%, #000000 100%);      overflow: hidden;      clip-path: inset(0 0 0 0 round 100px);      transition: clip-path 250ms ease, box-shadow 300ms ease;      box-shadow:        inset -0.05em -0.05em 0.05em rgba(255,255,255,0.08),        inset  0.025em 0.05em 0.1em  rgba(255,255,255,0.12),        inset  0.12em  0.12em 0.12em rgba(255,255,255,0.06),        inset -0.075em -0.25em 0.25em 0.1em rgba(255,255,255,0.04);    }
     .btn:hover .btn-inner {      clip-path: inset(1px 1px 1px 1px round 100px);      box-shadow:        inset 0.1em  0.15em 0.05em rgba(255,255,255,0.12),        inset 0.25em 0.25em 0.2em  rgba(255,255,255,0.08),        inset 0.12em 0.12em 0.12em rgba(255,255,255,0.06),        inset -0.075em -0.12em 0.2em 0.1em rgba(255,255,255,0.04);    }
-    .btn-label {      display: block;      font-family: 'Inter', sans-serif;      font-size: 1.05rem;      font-weight: 600;      letter-spacing: -0.02em;      color: #896bb5;      user-select: none;      transition: transform 250ms ease;      position: relative; z-index: 1;    }
+    .btn-label {      display: block;      font-family: 'Inter', sans-serif;      font-size: 1.05rem;      font-weight: 600;      letter-spacing: -0.02em;      color: #896bb5;      user-select: none;      transition: transform 250ms ease;      position: relative;      z-index: 1;    }
     .btn:hover .btn-label {      transform: scale(0.975);    }
     /* Loader */    .loader {      display: none;      transition: all 0.4s;    }
     .loader div {      margin-left: 0.8rem;      background-color: rgb(34, 34, 34);      box-shadow: inset 2px 2px 10px black;      border-radius: 100%;      height: 1rem;      width: 1rem;    }
@@ -47,7 +48,11 @@
     .px-granted-text {      font-family: 'Inter', sans-serif;      font-size: 1rem;      font-weight: 500;      color: #d4baff;      opacity: 0;      transform: translateY(10px);      transition: opacity 0.4s ease, transform 0.4s ease;      letter-spacing: 0.05em;    }
     .px-granted-text.show {      opacity: 1;      transform: translateY(0);    }
     /* Corner dot grid decoration */    .px-corner {      position: absolute;      bottom: 24px;      left: 32px;      opacity: 0.2;      pointer-events: none;      z-index: 2;    }  </style></head><body>
-  <div class="background">    <div class="background-content">      <div class="px-root" id="pxRoot">
+  <div class="background">
+    <video class="background-video" autoplay loop muted playsinline>
+      <source src="backgroundvideo.mp4" type="video/mp4">
+    </video>
+    <div class="background-content">      <div class="px-root" id="pxRoot">
         <div class="px-bg-glow"></div>        <canvas id="starsCanvas"></canvas>
         <div class="px-x-wrap" aria-hidden="true">          <div class="px-x-3d" id="x3d">            <div class="px-x-face front"><span class="xletter">X</span></div>            <div class="px-x-face back"><span class="xletter">X</span></div>            <div class="px-x-face left"><span class="xletter">*</span></div>            <div class="px-x-face right"><span class="xletter">*</span></div>          </div>        </div>
         <h1 class="px-title">Welcome to paléXdigital</h1>
@@ -58,34 +63,73 @@
         <svg class="px-corner" width="100" height="100" viewBox="0 0 100 100" aria-hidden="true">          <circle cx="10" cy="10" r="2.5" fill="#896bb5"/>          <circle cx="30" cy="10" r="2.5" fill="#896bb5"/>          <circle cx="50" cy="10" r="2.5" fill="#896bb5"/>          <circle cx="70" cy="10" r="2.5" fill="#896bb5"/>          <circle cx="10" cy="30" r="2.5" fill="#896bb5"/>          <circle cx="30" cy="30" r="2.5" fill="#896bb5"/>          <circle cx="50" cy="30" r="2.5" fill="#896bb5"/>          <circle cx="10" cy="50" r="2.5" fill="#896bb5"/>          <circle cx="30" cy="50" r="2.5" fill="#896bb5"/>          <circle cx="10" cy="70" r="2.5" fill="#896bb5"/>        </svg>
       </div>    </div>  </div>
   <script>  (function () {    'use strict';
-    /* SECURITY: REDIRECT ALLOWLIST */    var ALLOWED_DESTINATIONS = Object.freeze({ 'linkhub/': true });
-    function safeRedirect(dest) {      if (!ALLOWED_DESTINATIONS[dest]) {        console.error('[Security] Blocked redirect to unlisted destination:', dest);        return;      }      window.location.href = dest;    }
-    var timerIds = [];
+    /* SECURITY: REDIRECT ALLOWLIST      Only URLs listed here may be used as redirect targets.      safeRedirect() blocks any destination not in this set,      preventing open-redirect vulnerabilities even if this      function is ever called with a dynamically built string.    */    var ALLOWED_DESTINATIONS = Object.freeze({ 'linkhub/': true });
+
+    /* safeRedirect(dest)      Validates dest against ALLOWED_DESTINATIONS before navigating.      Silently blocks and logs any unlisted target without exposing      details in the UI.    */    function safeRedirect(dest) {      if (!ALLOWED_DESTINATIONS[dest]) {        console.error('[Security] Blocked redirect to unlisted destination:', dest);        return;      }      window.location.href = dest;    }
+
+        var timerIds = [];
+
     function safeTimeout(fn, ms) {      var id = setTimeout(fn, ms);      timerIds.push(id);      return id;    }
+
     function clearAllTimers() {      timerIds.forEach(function (id) { clearTimeout(id); });      timerIds = [];    }
+
     /* SHOOTING STARS */    var canvas = document.getElementById('starsCanvas');    var root   = document.getElementById('pxRoot');
+
     function resizeCanvas() {      canvas.width  = root.offsetWidth  || window.innerWidth;      canvas.height = root.offsetHeight || window.innerHeight;    }    resizeCanvas();
-    if (typeof ResizeObserver !== 'undefined') {      new ResizeObserver(resizeCanvas).observe(root);    } else {      window.addEventListener('resize', resizeCanvas, { passive: true });    }
+
+    /* ResizeObserver is more efficient than a window resize listener */    if (typeof ResizeObserver !== 'undefined') {      new ResizeObserver(resizeCanvas).observe(root);    } else {      window.addEventListener('resize', resizeCanvas, { passive: true });    }
+
     var ctx = canvas.getContext('2d');    var stars = [];    var spawnTimer = 0;
+
     function Star(x, y, size) {      this.x        = x;      this.y        = y;      this.size     = size;      this.speedY   = 8.0 + Math.random() * 8.5;      this.speedX   = (Math.random() - 0.5) * 6.0;      this.opacity  = 0;      this.fadeIn   = true;      this.rotation = Math.random() * Math.PI * 2;      this.rotSpeed = (Math.random() - 0.5) * 0.09;      this.trail    = [];      this.maxTrail = 10 + Math.floor(Math.random() * 8);    }
+
     Star.prototype.update = function () {      this.trail.unshift({ x: this.x, y: this.y });      if (this.trail.length > this.maxTrail) this.trail.pop();      this.y -= this.speedY;      this.x += this.speedX;      this.rotation += this.rotSpeed;      if (this.fadeIn) {        this.opacity += 0.08;        if (this.opacity >= 0.95) this.fadeIn = false;      } else {        this.opacity -= 0.015;      }    };
+
     Star.prototype.dead = function () {      return this.opacity <= 0 || this.y < -20;    };
+
     function drawStar(cx, cy, size, rot, alpha) {      if (size < 0.4) return;      ctx.save();      ctx.translate(cx, cy);      ctx.rotate(rot);      ctx.globalAlpha = alpha;      ctx.fillStyle = '#d4baff';      ctx.beginPath();      var spikes = 4, outerR = size, innerR = size * 0.42;      for (var i = 0; i < spikes * 2; i++) {        var angle = (i * Math.PI) / spikes - Math.PI / 2;        var r = (i % 2 === 0) ? outerR : innerR;        if (i === 0) ctx.moveTo(Math.cos(angle) * r, Math.sin(angle) * r);        else         ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);      }      ctx.closePath();      ctx.fill();      ctx.restore();    }
+
     function spawnStar() {      stars.push(new Star(        Math.random() * canvas.width,        canvas.height + 12,        3 + Math.random() * 5      ));    }
+
     function tick() {      ctx.clearRect(0, 0, canvas.width, canvas.height);      spawnTimer++;      if (spawnTimer % 1 === 0) spawnStar();      var alive = [];      for (var i = 0; i < stars.length; i++) {        var s = stars[i];        s.update();        if (!s.dead()) alive.push(s);        for (var t = 0; t < s.trail.length; t++) {          drawStar(            s.trail[t].x, s.trail[t].y,            s.size * (1 - t / s.trail.length) * 0.7,            s.rotation,            s.opacity * (1 - t / s.trail.length) * 0.35          );        }        drawStar(s.x, s.y, s.size, s.rotation, s.opacity);      }      stars = alive;      requestAnimationFrame(tick);    }
+
     for (var i = 0; i < 60; i++) {      var s = new Star(        Math.random() * (root.offsetWidth  || 400),        Math.random() * (root.offsetHeight || 500),        3 + Math.random() * 5      );      s.opacity = 0.3 + Math.random() * 0.6;      s.fadeIn  = false;      stars.push(s);    }
+
     tick();
+
     /* BUTTON - LOADER - NAVIGATION */    var btn             = document.getElementById('mainBtn');    var container       = document.getElementById('sparkContainer');    var btnWrap         = document.getElementById('btnWrap');    var loaderIcon      = document.getElementById('loaderIcon');    var successIconWrap = document.getElementById('successIconWrap');    var animatedCheck   = document.getElementById('animatedCheck');    var grantedText     = document.getElementById('grantedText');
-    var isProcessing = false;
+
+       var isProcessing = false;
+
     function resetUI() {      clearAllTimers();      isProcessing = false;      btn.style.display        = 'inline-block';      btn.style.opacity        = '1';      btn.style.pointerEvents  = 'auto';      loaderIcon.style.display = 'none';      successIconWrap.classList.remove('show');      grantedText.classList.remove('show');    }
-    btn.addEventListener('click', function () {      if (isProcessing) return;      isProcessing = true;      btn.style.display       = 'none';      btn.style.pointerEvents = 'none';      loaderIcon.style.display = 'flex';
-      safeTimeout(function () {        loaderIcon.style.display = 'none';        successIconWrap.classList.add('show');        grantedText.classList.add('show');
+
+    btn.addEventListener('click', function () {      if (isProcessing) return;      isProcessing = true;
+
+      btn.style.display       = 'none';      btn.style.pointerEvents = 'none';
+
+      // Step 1 - show loader      loaderIcon.style.display = 'flex';
+
+      // Step 2 - hold for 3 seconds      safeTimeout(function () {        loaderIcon.style.display = 'none';
+
+        // Step 3 - show success state with animated checkmark        successIconWrap.classList.add('show');        grantedText.classList.add('show');
+
         animatedCheck.animate([          { strokeDashoffset: 100 },          { strokeDashoffset: 0 }        ], {          duration: 400,          easing: 'ease-in-out',          fill: 'forwards'        });
-        safeTimeout(function () {          safeRedirect('linkhub/');        }, 1200);      }, 3000);    });
-    window.addEventListener('pageshow', function () {      resetUI();    });
+
+        // Step 4 - navigate to validated destination        safeTimeout(function () {          safeRedirect('linkhub/');        }, 1200);
+
+      }, 3000);    });
+
+       window.addEventListener('pageshow', function () {      resetUI();    });
+
     btn.addEventListener('mousemove', function (e) {      if (!isProcessing && Math.random() > 0.88) {        var wRect = btnWrap.getBoundingClientRect();        var x = e.clientX - wRect.left;        var y = e.clientY - wRect.top;        var el = document.createElement('div');        el.className = 'px-spark';
-        el.style.setProperty('left',       x + 'px');        el.style.setProperty('top',        y + 'px');        el.style.setProperty('width',      '3px');        el.style.setProperty('height',     '3px');        el.style.setProperty('background', '#896bb5');        el.style.setProperty('opacity',    '0.8');        el.style.setProperty('transition', 'transform 380ms ease, opacity 380ms ease');        container.appendChild(el);
+
+        el.style.setProperty('left',       x + 'px');        el.style.setProperty('top',        y + 'px');        el.style.setProperty('width',      '3px');        el.style.setProperty('height',     '3px');        el.style.setProperty('background', '#896bb5');        el.style.setProperty('opacity',    '0.8');        el.style.setProperty('transition', 'transform 380ms ease, opacity 380ms ease');
+
+        container.appendChild(el);
+
         requestAnimationFrame(function () {          requestAnimationFrame(function () {            var tx = ((Math.random() - 0.5) * 20).toFixed(2) + 'px';            var ty = (-10 - Math.random() * 14).toFixed(2) + 'px';            el.style.setProperty('transform', 'translate(' + tx + ',' + ty + ') scale(0)');            el.style.setProperty('opacity',   '0');          });        });
+
         safeTimeout(function () {          if (el.parentNode) el.parentNode.removeChild(el);        }, 480);      }    }, { passive: true });
+
   }());  </script>
 </body></html>
